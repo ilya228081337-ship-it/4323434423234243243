@@ -1,14 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
   Truck,
   Clock,
   MessageCircle,
-  Heart,
-  Dumbbell,
-  Users,
-  Sparkles,
-  Leaf,
   Phone,
   Mail,
   MapPin,
@@ -19,10 +14,16 @@ import {
   Award,
   FlaskConical,
   FileCheck,
-  ChevronLeft,
-  ChevronRight,
+  ShoppingCart,
+  Globe,
+  Pill,
+  Dumbbell,
+  Package,
+  Store,
+  TrendingUp,
 } from 'lucide-react';
 
+/* ─── Hooks & shared UI ─── */
 function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -71,52 +72,135 @@ function AnimatedSection({
   );
 }
 
-/* ─── Data ─── */
-const brandLogos = [
-  {
-    name: 'NOW Foods',
-    url: 'https://www.nowfoods.com/cdn/shop/files/now-logo_200x.png?v=1614323231',
-  },
-  {
-    name: 'Sambucol',
-    url: 'https://sambucolusa.com/cdn/shop/files/Sambucol-Logo_200x.png?v=1614323231',
-  },
-  {
-    name: 'Life Extension',
-    url: 'https://www.lifeextension.com/cdn/shop/files/LE-Logo_200x.png?v=1614323231',
-  },
-  {
-    name: "Doctor's Best",
-    url: 'https://www.doctorsbest.com/cdn/shop/files/Dr_Best_Logo-01_200x.png?v=1717125120',
-  },
-];
+/* ─── Modal (Получить условия) ─── */
+function ConditionsModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
 
-const heroSlides = [
-  {
-    image: 'https://i.postimg.cc/JzDTK07q/i-(2).webp',
-  },
-  {
-    image: 'https://i.postimg.cc/FFTD437q/a-AALHUqc-St4Elj-HQDIbe8g.webp',
-  },
-  {
-    image: 'https://i.postimg.cc/j5m9Rfjw/0a4912fef5d3fdc74fba3b6e4b79d5bb.webp',
-  },
-  {
-    image:
-      'https://images.pexels.com/photos/7615570/pexels-photo-7615570.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
-  },
-  {
-    image:
-      'https://images.pexels.com/photos/3850747/pexels-photo-3850747.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
-  },
-  {
-    image:
-      'https://images.pexels.com/photos/7615571/pexels-photo-7615571.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
-  },
-];
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      setSubmitted(false);
+      setFormData({ name: '', phone: '', message: '' });
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (open) window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm" />
+      <div
+        className="relative bg-white rounded-2xl p-6 sm:p-8 shadow-2xl border border-neutral-200 w-full max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
+          aria-label="Закрыть"
+        >
+          <X size={20} />
+        </button>
+
+        {submitted ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 size={32} />
+            </div>
+            <h3 className="text-xl font-bold text-neutral-900 mb-2">Заявка отправлена!</h3>
+            <p className="text-neutral-600">
+              Наш менеджер свяжется с вами в ближайшее время.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-xl font-bold text-neutral-900 mb-2">Получить условия</h3>
+            <p className="text-neutral-500 text-sm mb-6">
+              Оставьте контакты — менеджер пришлёт прайс и условия сотрудничества.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="modal-name" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                  Ваше имя
+                </label>
+                <input
+                  id="modal-name"
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                  placeholder="Иван Иванов"
+                />
+              </div>
+              <div>
+                <label htmlFor="modal-phone" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                  Телефон
+                </label>
+                <input
+                  id="modal-phone"
+                  type="tel"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                  placeholder="+7 (___) ___-__-__"
+                />
+              </div>
+              <div>
+                <label htmlFor="modal-message" className="block text-sm font-medium text-neutral-700 mb-1.5">
+                  Сообщение
+                </label>
+                <textarea
+                  id="modal-message"
+                  rows={3}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"
+                  placeholder="Какие бренды и позиции интересуют?"
+                />
+              </div>
+              <button type="submit" className="btn-primary w-full !py-3">
+                Получить условия
+                <ArrowRight size={18} />
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 /* ─── Header ─── */
-function Header() {
+function Header({ onGetConditions }: { onGetConditions: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -127,12 +211,15 @@ function Header() {
   }, []);
 
   const navLinks = [
-    { href: '#brands', label: 'Бренды' },
+    { href: '#brands', label: 'О бренде' },
     { href: '#categories', label: 'Категории' },
+    { href: '#exclusive', label: 'Партнёры' },
+    { href: '#business', label: 'Бизнесу' },
     { href: '#quality', label: 'Качество' },
     { href: '#delivery', label: 'Доставка' },
-    { href: '#contact', label: 'Контакты' },
   ];
+
+  const handleNavClick = () => setMobileOpen(false);
 
   return (
     <header
@@ -149,24 +236,27 @@ function Header() {
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="px-4 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200"
+              className="px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition-colors duration-200"
             >
               {l.label}
             </a>
           ))}
-          <a href="#contact" className="btn-primary ml-3 !py-2.5 !px-6 text-sm">
-            Оставить заявку
-          </a>
+          <button
+            onClick={onGetConditions}
+            className="btn-primary ml-3 !py-2.5 !px-6 text-sm"
+          >
+            Получить условия
+          </button>
         </nav>
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-neutral-700 hover:text-primary-600 transition-colors"
+          className="lg:hidden p-2 text-neutral-700 hover:text-primary-600 transition-colors"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -174,25 +264,27 @@ function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white border-b border-neutral-100 shadow-lg">
+        <div className="lg:hidden bg-white border-b border-neutral-100 shadow-lg">
           <nav className="section-container py-4 flex flex-col gap-1">
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={handleNavClick}
                 className="px-4 py-3 text-sm font-medium text-neutral-700 hover:text-primary-600 rounded-lg hover:bg-primary-50 transition-colors"
               >
                 {l.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={() => setMobileOpen(false)}
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                onGetConditions();
+              }}
               className="btn-primary mt-2 text-sm"
             >
-              Оставить заявку
-            </a>
+              Получить условия
+            </button>
           </nav>
         </div>
       )}
@@ -201,93 +293,55 @@ function Header() {
 }
 
 /* ─── Hero ─── */
-function Hero() {
-  const [current, setCurrent] = useState(0);
+const heroImage =
+  'https://images.pexels.com/photos/7615570/pexels-photo-7615570.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80';
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+const heroBullets = [
+  'Контроль РРЦ',
+  'Высокая маржинальность',
+  'Прямые поставки',
+  'Гибкие условия',
+  'Контроль РРЦ',
+];
 
-  const prev = useCallback(
-    () => setCurrent((c) => (c - 1 + heroSlides.length) % heroSlides.length),
-    []
-  );
-
-  const next = useCallback(
-    () => setCurrent((c) => (c + 1) % heroSlides.length),
-    []
-  );
-
+function Hero({ onGetConditions }: { onGetConditions: () => void }) {
   return (
     <section className="relative pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden min-h-[560px] sm:min-h-[640px] flex items-center">
-      {/* Sliding backgrounds */}
-      {heroSlides.map((slide, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: current === i ? 1 : 0 }}
-        >
-          <img
-            src={slide.image}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-neutral-950/70" />
-        </div>
-      ))}
-
-      {/* Navigation arrows (hidden on mobile) */}
-      <button
-        onClick={prev}
-        className="hidden sm:flex absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white/70 hover:bg-white/20 hover:text-white items-center justify-center transition-colors"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={20} />
-      </button>
-      <button
-        onClick={next}
-        className="hidden sm:flex absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm text-white/70 hover:bg-white/20 hover:text-white items-center justify-center transition-colors"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={20} />
-      </button>
+      <div className="absolute inset-0">
+        <img
+          src={heroImage}
+          alt="NOW KZ — дистрибьютор БАДов"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-neutral-950/70" />
+      </div>
 
       <div className="section-container relative z-10 w-full">
         <div className="max-w-2xl">
           <p className="text-sm sm:text-base font-semibold tracking-widest uppercase text-white/50 mb-5">
-            Оригинальная продукция из США
+            Официальный дистрибьютор в Казахстане
           </p>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-5">
-            NOW KZ - дистрибьютор ведущих мировых брендов БАДов в Казахстане
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-6">
+            NOW KZ — официальный дистрибьютор ведущих производителей БАДов в Казахстане
           </h1>
 
-          <p className="text-base sm:text-lg text-white/60 leading-relaxed mb-4 max-w-xl">
-            Прямые поставки БАДов и спортивного питания от производителей. Для продавцов маркетплейсов, интернет-магазинов, аптек и торговых сетей.
-          </p>
+          <ul className="space-y-2.5 mb-8">
+            {heroBullets.map((b, i) => (
+              <li key={i} className="flex items-center gap-3 text-white/90">
+                <CheckCircle2 size={20} className="text-primary-400 shrink-0" />
+                <span className="text-base sm:text-lg font-medium">{b}</span>
+              </li>
+            ))}
+          </ul>
 
-          <p className="text-sm text-white/40 mb-8">
-            Только оригинальная продукция с сертификатами качества
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-neutral-900 font-semibold rounded-lg hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-200 shadow-lg"
-            >
-              Оставить заявку
-              <ArrowRight size={17} />
-            </a>
-            <a
-              href="#brands"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200"
-            >
-              Наши бренды
-            </a>
-          </div>
+          <button
+            onClick={onGetConditions}
+            className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-neutral-900 font-semibold rounded-lg hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-200 shadow-lg"
+          >
+            Получить условия
+            <ArrowRight size={17} />
+          </button>
         </div>
       </div>
     </section>
@@ -297,7 +351,7 @@ function Hero() {
 /* ─── Why Choose Us ─── */
 const advantages = [
   { icon: ShieldCheck, title: 'Гарантия 100% оригинальности' },
-  { icon: Leaf, title: 'Популярные бренды: NOW, Sambucol, Life Extension, Doctor\'s Best' },
+  { icon: TrendingUp, title: 'Популярные бренды: NOW, Swanson, Life Extension, OstroVit, VPLab, Solaray' },
   { icon: CheckCircle2, title: 'Сертификаты качества и контроль поставок' },
   { icon: Truck, title: 'Быстрая доставка по Казахстану' },
   { icon: Clock, title: 'Актуальные сроки годности' },
@@ -334,88 +388,84 @@ function WhyUs() {
   );
 }
 
-/* ─── Brands ─── */
-const brands = [
-  {
-    name: 'NOW Foods',
-    description:
-      'Один из самых известных мировых производителей витаминов и добавок. Широкий ассортимент: омега-3, магний, витамин D3, коллаген, аминокислоты, спортивное питание и многое другое.',
-    accent: 'from-primary-500 to-primary-700',
-  },
-  {
-    name: 'Sambucol',
-    description:
-      'Известный бренд на основе черной бузины для поддержки иммунитета взрослых и детей. Особенно популярен в сезон простуд и вирусных нагрузок.',
-    accent: 'from-accent-600 to-accent-800',
-  },
-  {
-    name: 'Life Extension',
-    description:
-      'Премиальные формулы для поддержки долголетия, здоровья сердца, мозга, сосудов и общего качества жизни. Высокие стандарты исследований и состава.',
-    accent: 'from-amber-500 to-amber-700',
-  },
-  {
-    name: "Doctor's Best",
-    description:
-      'Научный подход и эффективные формулы для суставов, нервной системы, сна, энергии и восстановления организма.',
-    accent: 'from-sky-500 to-sky-700',
-  },
+/* ─── About NOW Foods ─── */
+const nowPhotos = [
+  'https://images.pexels.com/photos/7722648/pexels-photo-7722648.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/17604755/pexels-photo-17604755.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/15897781/pexels-photo-15897781.jpeg?auto=compress&cs=tinysrgb&w=800',
 ];
 
-function Brands() {
+function AboutNow({ onGetConditions }: { onGetConditions: () => void }) {
   return (
     <section id="brands" className="py-14 sm:py-20 bg-neutral-50">
       <div className="section-container">
-        <AnimatedSection>
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
-              Бренды, которые мы поставляем
-            </h2>
-            <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full" />
-          </div>
-        </AnimatedSection>
-
-        {/* Marquee */}
-        <AnimatedSection>
-          <div className="overflow-hidden mb-12 relative">
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-neutral-50 to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-neutral-50 to-transparent z-10" />
-            <div className="flex animate-marquee items-center gap-16 py-4">
-              {[...brandLogos, ...brandLogos, ...brandLogos, ...brandLogos].map((brand, i) => (
-                <div
-                  key={i}
-                  className="flex-shrink-0 flex items-center justify-center h-16 px-4"
-                >
-                  <img
-                    src={brand.url}
-                    alt={brand.name}
-                    className="h-12 sm:h-14 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `<span class="text-lg font-bold text-neutral-400 whitespace-nowrap">${brand.name}</span>`;
-                      }
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* Brand cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {brands.map((brand, i) => (
-            <AnimatedSection key={i} delay={i * 80}>
-              <div className="card h-full flex flex-col overflow-hidden">
-                <div className={`h-2 rounded-t-xl bg-gradient-to-r ${brand.accent} -mt-6 -mx-6 sm:-mt-8 sm:-mx-8 mb-6`} />
-                <h3 className="text-xl font-bold text-neutral-900 mb-3">{brand.name}</h3>
-                <p className="text-neutral-600 leading-relaxed flex-1">{brand.description}</p>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <AnimatedSection>
+            <div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-6">
+                Поставляем продукцию NOW Foods
+              </h2>
+              <div className="space-y-4 text-neutral-600 leading-relaxed">
+                <p className="text-lg">
+                  NOW Foods — один из ведущих американских производителей витаминов, минералов и
+                  пищевых добавок с более чем 50-летней историей.
+                </p>
+                <p>
+                  Мы осуществляем прямые поставки продукции NOW с завода-производителя по предзаказу.
+                </p>
+                <p>
+                  Большой ассортимент продукции постоянно поддерживается на собственном складе в
+                  Алматы — популярные позиции доступны без длительного ожидания поставки.
+                </p>
               </div>
-            </AnimatedSection>
-          ))}
+
+              <div className="flex flex-wrap gap-2 mt-6">
+                {['Оригинальная продукция', 'Прямые поставки', 'Склад в Алматы'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium"
+                  >
+                    <CheckCircle2 size={15} />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <button
+                onClick={onGetConditions}
+                className="btn-primary mt-8"
+              >
+                Получить условия
+                <ArrowRight size={18} />
+              </button>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={150}>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="row-span-2">
+                <img
+                  src={nowPhotos[0]}
+                  alt="Продукция NOW Foods"
+                  className="w-full h-full object-cover rounded-xl shadow-md"
+                />
+              </div>
+              <div>
+                <img
+                  src={nowPhotos[1]}
+                  alt="Витамины NOW Foods"
+                  className="w-full h-40 sm:h-48 object-cover rounded-xl shadow-md"
+                />
+              </div>
+              <div>
+                <img
+                  src={nowPhotos[2]}
+                  alt="Добавки NOW Foods"
+                  className="w-full h-40 sm:h-48 object-cover rounded-xl shadow-md"
+                />
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
@@ -464,40 +514,206 @@ function Categories() {
   );
 }
 
-/* ─── For Whom ─── */
-const audiences = [
-  { icon: Heart, text: 'Для тех, кто заботится о здоровье и энергии' },
-  { icon: Dumbbell, text: 'Для спортсменов и активных людей' },
-  { icon: Users, text: 'Для поддержки иммунитета всей семьи' },
-  { icon: Sparkles, text: 'Для восстановления после нагрузок и стресса' },
-  { icon: Leaf, text: 'Для поддержания красоты кожи, волос и ногтей' },
+/* ─── Exclusive Brands ─── */
+const exclusiveBrands = [
+  {
+    name: 'Swanson',
+    facts: [
+      'Американский бренд витаминов и добавок с 1969 года',
+      'Более 2 000 наименований в ассортименте',
+      'Популярные позиции: омега-3, куркумин, цинк',
+    ],
+    photos: [
+      'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/14744699/pexels-photo-14744699.jpeg?auto=compress&cs=tinysrgb&w=600',
+    ],
+  },
+  {
+    name: 'VPLab',
+    facts: [
+      'Спортивное питание премиум-класса',
+      'Высокое содержание белка и аминокислот',
+      'Популярные позиции: протеины, BCAA, креатин',
+    ],
+    photos: [
+      'https://images.pexels.com/photos/12625114/pexels-photo-12625114.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/33921585/pexels-photo-33921585.jpeg?auto=compress&cs=tinysrgb&w=600',
+    ],
+  },
+  {
+    name: 'OstroVit',
+    facts: [
+      'Европейский производитель спортивного питания и добавок',
+      'Отличное соотношение цены и качества',
+      'Популярные позиции: протеин, креатин, BCAA',
+    ],
+    photos: [
+      'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/17820709/pexels-photo-17820709.jpeg?auto=compress&cs=tinysrgb&w=600',
+    ],
+  },
+  {
+    name: 'Solaray',
+    facts: [
+      'Бренд травяных и витаминных комплексов с 1973 года',
+      'Инновационные формулы и высокое качество сырья',
+      'Популярные позиции: магний, витамин D3, травяные комплексы',
+    ],
+    photos: [
+      'https://images.pexels.com/photos/15897778/pexels-photo-15897778.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/15897772/pexels-photo-15897772.jpeg?auto=compress&cs=tinysrgb&w=600',
+    ],
+  },
+  {
+    name: 'Life Extension',
+    facts: [
+      'Премиальные формулы для долголетия и здоровья',
+      'Научно обоснованные составы ингредиентов',
+      'Популярные позиции: омега-3, магний, NAC',
+    ],
+    photos: [
+      'https://images.pexels.com/photos/17604925/pexels-photo-17604925.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/17820733/pexels-photo-17820733.jpeg?auto=compress&cs=tinysrgb&w=600',
+    ],
+  },
 ];
 
-function ForWhom() {
+function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
   return (
-    <section className="py-14 sm:py-20 bg-neutral-50">
+    <section id="exclusive" className="py-14 sm:py-20 bg-neutral-50">
       <div className="section-container">
         <AnimatedSection>
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
-              Для кого наши БАДы?
+              Поставляем продукцию ведущих производителей на эксклюзивных условиях
+            </h2>
+            <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full mb-6" />
+            <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+              NOW KZ является эксклюзивным дистрибьютором на территории Казахстана
+              производителей: Swanson, VPLab, OstroVit, Solaray, Life Extension.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {exclusiveBrands.map((brand, i) => (
+            <AnimatedSection key={i} delay={i * 80}>
+              <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col">
+                {/* Logo / name header */}
+                <div className="px-6 pt-6 pb-4 border-b border-neutral-100">
+                  <h3 className="text-2xl font-bold text-neutral-900">{brand.name}</h3>
+                </div>
+
+                {/* Photos */}
+                <div className="grid grid-cols-2 gap-1 px-4 pt-4">
+                  {brand.photos.map((photo, j) => (
+                    <img
+                      key={j}
+                      src={photo}
+                      alt={`${brand.name} — продукция ${j + 1}`}
+                      className="w-full h-28 sm:h-32 object-cover rounded-lg"
+                    />
+                  ))}
+                </div>
+
+                {/* Facts */}
+                <div className="p-6 flex-1 flex flex-col">
+                  <ul className="space-y-2.5 flex-1">
+                    {brand.facts.map((fact, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-sm text-neutral-600">
+                        <CheckCircle2 size={16} className="text-primary-500 shrink-0 mt-0.5" />
+                        <span>{fact}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        <AnimatedSection delay={200}>
+          <div className="text-center mt-10">
+            <button onClick={onGetConditions} className="btn-primary">
+              Получить условия
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+/* ─── For Business ─── */
+const businessSegments = [
+  {
+    icon: ShoppingCart,
+    title: 'Для продавцов на маркетплейсах',
+    desc: 'Востребованные бренды и популярные позиции для продавцов на Kaspi, Wildberries, Ozon и других площадках.',
+  },
+  {
+    icon: Globe,
+    title: 'Для интернет-магазинов',
+    desc: 'Широкий ассортимент витаминов, БАДов и спортивного питания для развития собственного онлайн-магазина.',
+  },
+  {
+    icon: Pill,
+    title: 'Для аптек и аптечных сетей',
+    desc: 'Оригинальная продукция известных мировых брендов с официальными поставками и стабильным ассортиментом.',
+  },
+  {
+    icon: Dumbbell,
+    title: 'Для магазинов спортивного питания и витаминов',
+    desc: 'Популярные позиции NOW, Swanson, Life Extension, OstroVit, VPLab, Solaray и других производителей.',
+  },
+  {
+    icon: Package,
+    title: 'Для оптовых компаний и дистрибьюторов',
+    desc: 'Специальные условия для региональных партнеров, торговых компаний и оптовых покупателей.',
+  },
+  {
+    icon: Store,
+    title: 'Для розничных магазинов',
+    desc: 'Готовый ассортимент востребованных товаров для здоровья, красоты, спорта и активного образа жизни.',
+  },
+];
+
+function ForBusiness({ onGetConditions }: { onGetConditions: () => void }) {
+  return (
+    <section id="business" className="py-14 sm:py-20 bg-white">
+      <div className="section-container">
+        <AnimatedSection>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
+              Надёжный поставщик для вашего бизнеса
             </h2>
             <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full" />
           </div>
         </AnimatedSection>
 
-        <div className="max-w-2xl mx-auto space-y-3">
-          {audiences.map((item, i) => (
-            <AnimatedSection key={i} delay={i * 60}>
-              <div className="flex items-center gap-4 bg-white rounded-xl border border-neutral-200 p-5 hover:shadow-md hover:border-primary-200 transition-all duration-300">
-                <div className="w-11 h-11 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center shrink-0">
-                  <item.icon size={22} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {businessSegments.map((item, i) => (
+            <AnimatedSection key={i} delay={i * 60} className="h-full">
+              <div className="card group h-full flex flex-col">
+                <div className="w-12 h-12 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                  <item.icon size={24} />
                 </div>
-                <p className="text-neutral-700 font-medium">{item.text}</p>
+                <h3 className="text-base font-bold text-neutral-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed flex-1">{item.desc}</p>
               </div>
             </AnimatedSection>
           ))}
         </div>
+
+        <AnimatedSection delay={200}>
+          <div className="text-center mt-10">
+            <button onClick={onGetConditions} className="btn-primary">
+              Получить условия
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
@@ -530,7 +746,6 @@ const qualityFeatures = [
 function Quality() {
   return (
     <section id="quality" className="py-14 sm:py-20 bg-gradient-to-br from-primary-800 via-primary-900 to-primary-950 text-white relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary-700/20 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary-600/10 rounded-full blur-3xl" />
 
@@ -636,15 +851,7 @@ function Delivery() {
 }
 
 /* ─── Contact ─── */
-function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
+function Contact({ onGetConditions }: { onGetConditions: () => void }) {
   return (
     <section id="contact" className="py-14 sm:py-20 bg-neutral-50 relative overflow-hidden">
       <div className="section-container">
@@ -682,72 +889,15 @@ function Contact() {
           </AnimatedSection>
 
           <AnimatedSection delay={150}>
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200">
-              {submitted ? (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 size={32} />
-                  </div>
-                  <h3 className="text-xl font-bold text-neutral-900 mb-2">Заявка отправлена!</h3>
-                  <p className="text-neutral-600">
-                    Наш менеджер свяжется с вами в ближайшее время.
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <h3 className="text-xl font-bold text-neutral-900 mb-2">Оставьте заявку</h3>
-                  <p className="text-neutral-500 text-sm mb-6">
-                    Наш менеджер поможет подобрать подходящие витамины и ответит на все вопросы.
-                  </p>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                        Ваше имя
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
-                        placeholder="Иван Иванов"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                        Телефон
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
-                        placeholder="+7 (___) ___-__-__"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1.5">
-                        Сообщение
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={3}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"
-                        placeholder="Какие витамины вас интересуют?"
-                      />
-                    </div>
-                    <button type="submit" className="btn-primary w-full !py-3">
-                      Отправить заявку
-                      <ArrowRight size={18} />
-                    </button>
-                  </form>
-                </>
-              )}
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200 text-center">
+              <h3 className="text-xl font-bold text-neutral-900 mb-2">Получить условия сотрудничества</h3>
+              <p className="text-neutral-500 text-sm mb-6">
+                Оставьте заявку — менеджер пришлёт прайс-лист и расскажет об условиях работы.
+              </p>
+              <button onClick={onGetConditions} className="btn-primary w-full !py-3">
+                Получить условия
+                <ArrowRight size={18} />
+              </button>
             </div>
           </AnimatedSection>
         </div>
@@ -763,11 +913,12 @@ function Footer() {
       <div className="section-container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-            <a href="#brands" className="hover:text-white transition-colors">Бренды</a>
+            <a href="#brands" className="hover:text-white transition-colors">О бренде</a>
             <a href="#categories" className="hover:text-white transition-colors">Категории</a>
+            <a href="#exclusive" className="hover:text-white transition-colors">Партнёры</a>
+            <a href="#business" className="hover:text-white transition-colors">Бизнесу</a>
             <a href="#quality" className="hover:text-white transition-colors">Качество</a>
             <a href="#delivery" className="hover:text-white transition-colors">Доставка</a>
-            <a href="#contact" className="hover:text-white transition-colors">Контакты</a>
           </nav>
           <p className="text-sm text-neutral-500">
             &copy; {new Date().getFullYear()} NOW KZ
@@ -780,18 +931,24 @@ function Footer() {
 
 /* ─── App ─── */
 function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <div className="min-h-screen">
-      <Header />
+      <ConditionsModal open={modalOpen} onClose={closeModal} />
+      <Header onGetConditions={openModal} />
       <main>
-        <Hero />
+        <Hero onGetConditions={openModal} />
         <WhyUs />
-        <Brands />
+        <AboutNow onGetConditions={openModal} />
         <Categories />
-        <ForWhom />
+        <ExclusiveBrands onGetConditions={openModal} />
+        <ForBusiness onGetConditions={openModal} />
         <Quality />
         <Delivery />
-        <Contact />
+        <Contact onGetConditions={openModal} />
       </main>
       <Footer />
     </div>
