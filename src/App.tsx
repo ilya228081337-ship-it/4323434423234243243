@@ -362,11 +362,12 @@ function Hero({ onGetConditions }: { onGetConditions: () => void }) {
             NOW KZ — официальный дистрибьютор ведущих производителей БАДов в Казахстане
           </h1>
 
-          <div className="flex flex-wrap gap-3 mb-8 hero-fade-up" style={{ animationDelay: '0.35s' }}>
+          <div className="flex flex-wrap gap-3 mb-8">
             {heroBullets.map((b, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition-colors duration-200"
+                className="hero-bullet flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/10 border border-white/15"
+                style={{ animationDelay: `${0.35 + i * 0.08}s` }}
               >
                 <div className="w-8 h-8 rounded-lg bg-primary-500/20 text-primary-300 flex items-center justify-center shrink-0">
                   <b.icon size={18} />
