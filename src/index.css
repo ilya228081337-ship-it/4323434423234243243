@@ -32,16 +32,31 @@
   font-weight: 600;
   border-radius: 0.5rem;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 }
 .btn-primary:hover {
   background-color: #0059a1;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 8px 20px -4px rgb(0 111 197 / 0.4);
+  transform: translateY(-1px);
+}
+.btn-primary:hover::after {
+  transform: translateX(100%);
 }
 .btn-primary:active {
   background-color: #054a85;
+  transform: translateY(0);
 }
 .btn-primary:focus {
   outline: none;
@@ -111,21 +126,49 @@
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-25%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+.animate-marquee { animation: marquee 20s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes modal-panel-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.92) translateY(16px); }
+}
+@keyframes check-pop {
+  0% { opacity: 0; transform: scale(0); }
+  60% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.animate-marquee {
-  animation: marquee 20s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
+.modal-overlay-in { animation: modal-overlay-in 0.25s ease-out forwards; }
+.modal-overlay-out { animation: modal-overlay-out 0.2s ease-in forwards; }
+.modal-panel-in { animation: modal-panel-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.modal-panel-out { animation: modal-panel-out 0.2s ease-in forwards; }
+.check-pop { animation: check-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.hero-fade-up { opacity: 0; animation: hero-fade-up 0.6s ease-out forwards; }
+.float-slow { animation: float-slow 4s ease-in-out infinite; }
 
 @layer utilities {
   .text-balance {

@@ -21,6 +21,9 @@ import {
   Package,
   Store,
   TrendingUp,
+  Tag,
+  SlidersHorizontal,
+  Sparkles,
 } from 'lucide-react';
 
 /* ─── Hooks & shared UI ─── */
@@ -82,19 +85,28 @@ function ConditionsModal({
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
+  const [closing, setClosing] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (open) {
+      setMounted(true);
+      setClosing(false);
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-      setSubmitted(false);
-      setFormData({ name: '', phone: '', message: '' });
+    } else if (mounted) {
+      setClosing(true);
+      const t = setTimeout(() => {
+        setMounted(false);
+        setClosing(false);
+        setSubmitted(false);
+        setFormData({ name: '', phone: '', message: '' });
+      }, 250);
+      return () => clearTimeout(t);
     }
     return () => {
       document.body.style.overflow = '';
     };
-  }, [open]);
+  }, [open, mounted]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -104,25 +116,39 @@ function ConditionsModal({
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
+  const startClose = () => {
+    if (submitted) {
+      setSubmitted(false);
+      setFormData({ name: '', phone: '', message: '' });
+    }
+    onClose();
+  };
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      onClick={onClose}
+      onClick={startClose}
     >
-      <div className="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm" />
       <div
-        className="relative bg-white rounded-2xl p-6 sm:p-8 shadow-2xl border border-neutral-200 w-full max-w-md"
+        className={`absolute inset-0 bg-neutral-950/60 backdrop-blur-sm ${
+          closing ? 'modal-overlay-out' : 'modal-overlay-in'
+        }`}
+      />
+      <div
+        className={`relative bg-white rounded-2xl p-6 sm:p-8 shadow-2xl border border-neutral-200 w-full max-w-md ${
+          closing ? 'modal-panel-out' : 'modal-panel-in'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={onClose}
+          onClick={startClose}
           className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
           aria-label="Закрыть"
         >
@@ -131,7 +157,7 @@ function ConditionsModal({
 
         {submitted ? (
           <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center mx-auto mb-4 check-pop">
               <CheckCircle2 size={32} />
             </div>
             <h3 className="text-xl font-bold text-neutral-900 mb-2">Заявка отправлена!</h3>
@@ -141,6 +167,9 @@ function ConditionsModal({
           </div>
         ) : (
           <>
+            <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center mb-4">
+              <Sparkles size={24} />
+            </div>
             <h3 className="text-xl font-bold text-neutral-900 mb-2">Получить условия</h3>
             <p className="text-neutral-500 text-sm mb-6">
               Оставьте контакты — менеджер пришлёт прайс и условия сотрудничества.
@@ -156,7 +185,7 @@ function ConditionsModal({
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200"
                   placeholder="Иван Иванов"
                 />
               </div>
@@ -170,7 +199,7 @@ function ConditionsModal({
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors"
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200"
                   placeholder="+7 (___) ___-__-__"
                 />
               </div>
@@ -183,7 +212,7 @@ function ConditionsModal({
                   rows={3}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-colors resize-none"
+                  className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-neutral-900 placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all duration-200 resize-none"
                   placeholder="Какие бренды и позиции интересуют?"
                 />
               </div>
@@ -297,51 +326,65 @@ const heroImage =
   'https://images.pexels.com/photos/7615570/pexels-photo-7615570.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80';
 
 const heroBullets = [
-  'Контроль РРЦ',
-  'Высокая маржинальность',
-  'Прямые поставки',
-  'Гибкие условия',
-  'Контроль РРЦ',
+  { icon: Tag, text: 'Контроль РРЦ' },
+  { icon: TrendingUp, text: 'Высокая маржинальность' },
+  { icon: Truck, text: 'Прямые поставки' },
+  { icon: SlidersHorizontal, text: 'Гибкие условия' },
+  { icon: Tag, text: 'Контроль РРЦ' },
 ];
 
 function Hero({ onGetConditions }: { onGetConditions: () => void }) {
   return (
-    <section className="relative pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden min-h-[560px] sm:min-h-[640px] flex items-center">
+    <section className="relative pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden min-h-[560px] sm:min-h-[680px] flex items-center">
       <div className="absolute inset-0">
         <img
           src={heroImage}
           alt="NOW KZ — дистрибьютор БАДов"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-neutral-950/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/85 via-neutral-950/70 to-neutral-950/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/60 via-transparent to-transparent" />
       </div>
 
       <div className="section-container relative z-10 w-full">
         <div className="max-w-2xl">
-          <p className="text-sm sm:text-base font-semibold tracking-widest uppercase text-white/50 mb-5">
+          <p
+            className="text-sm sm:text-base font-semibold tracking-widest uppercase text-primary-300 mb-5 hero-fade-up"
+            style={{ animationDelay: '0.1s' }}
+          >
             Официальный дистрибьютор в Казахстане
           </p>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-6">
+          <h1
+            className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-7 hero-fade-up"
+            style={{ animationDelay: '0.2s' }}
+          >
             NOW KZ — официальный дистрибьютор ведущих производителей БАДов в Казахстане
           </h1>
 
-          <ul className="space-y-2.5 mb-8">
+          <div className="flex flex-wrap gap-3 mb-8 hero-fade-up" style={{ animationDelay: '0.35s' }}>
             {heroBullets.map((b, i) => (
-              <li key={i} className="flex items-center gap-3 text-white/90">
-                <CheckCircle2 size={20} className="text-primary-400 shrink-0" />
-                <span className="text-base sm:text-lg font-medium">{b}</span>
-              </li>
+              <div
+                key={i}
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition-colors duration-200"
+              >
+                <div className="w-8 h-8 rounded-lg bg-primary-500/20 text-primary-300 flex items-center justify-center shrink-0">
+                  <b.icon size={18} />
+                </div>
+                <span className="text-sm sm:text-base font-semibold text-white">{b.text}</span>
+              </div>
             ))}
-          </ul>
+          </div>
 
-          <button
-            onClick={onGetConditions}
-            className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white text-neutral-900 font-semibold rounded-lg hover:bg-neutral-100 active:bg-neutral-200 transition-all duration-200 shadow-lg"
-          >
-            Получить условия
-            <ArrowRight size={17} />
-          </button>
+          <div className="hero-fade-up" style={{ animationDelay: '0.5s' }}>
+            <button
+              onClick={onGetConditions}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-neutral-900 font-semibold rounded-xl hover:bg-primary-50 active:bg-primary-100 transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+            >
+              Получить условия
+              <ArrowRight size={18} />
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -443,25 +486,25 @@ function AboutNow({ onGetConditions }: { onGetConditions: () => void }) {
 
           <AnimatedSection delay={150}>
             <div className="grid grid-cols-2 gap-4">
-              <div className="row-span-2">
+              <div className="aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img
                   src={nowPhotos[0]}
                   alt="Продукция NOW Foods"
-                  className="w-full h-full object-cover rounded-xl shadow-md"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div>
+              <div className="aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img
                   src={nowPhotos[1]}
                   alt="Витамины NOW Foods"
-                  className="w-full h-40 sm:h-48 object-cover rounded-xl shadow-md"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div>
+              <div className="col-span-2 aspect-[2/1] rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                 <img
                   src={nowPhotos[2]}
                   alt="Добавки NOW Foods"
-                  className="w-full h-40 sm:h-48 object-cover rounded-xl shadow-md"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -595,10 +638,10 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 [grid-auto-rows:1fr]">
           {exclusiveBrands.map((brand, i) => (
-            <AnimatedSection key={i} delay={i * 80}>
-              <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col">
+            <AnimatedSection key={i} delay={i * 80} className="h-full">
+              <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
                 {/* Logo / name header */}
                 <div className="px-6 pt-6 pb-4 border-b border-neutral-100">
                   <h3 className="text-2xl font-bold text-neutral-900">{brand.name}</h3>
@@ -607,12 +650,13 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
                 {/* Photos */}
                 <div className="grid grid-cols-2 gap-1 px-4 pt-4">
                   {brand.photos.map((photo, j) => (
-                    <img
-                      key={j}
-                      src={photo}
-                      alt={`${brand.name} — продукция ${j + 1}`}
-                      className="w-full h-28 sm:h-32 object-cover rounded-lg"
-                    />
+                    <div key={j} className="aspect-[4/3] rounded-lg overflow-hidden">
+                      <img
+                        src={photo}
+                        alt={`${brand.name} — продукция ${j + 1}`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                   ))}
                 </div>
 
