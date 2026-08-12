@@ -604,8 +604,8 @@ const exclusiveBrands = [
       'Популярные позиции: магний, витамин D3, травяные комплексы',
     ],
     photos: [
-      'https://images.pexels.com/photos/15897778/pexels-photo-15897778.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/15897772/pexels-photo-15897772.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(3).webp',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/074117e5b661112e4357e9bfa4f46a8f.jpg',
     ],
   },
   {
