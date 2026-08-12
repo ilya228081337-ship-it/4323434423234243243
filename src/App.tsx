@@ -568,8 +568,8 @@ const exclusiveBrands = [
       'Популярные позиции: омега-3, куркумин, цинк',
     ],
     photos: [
-      'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/14744699/pexels-photo-14744699.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(1).webp',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/6e507b8a8ce8a95898ba9d781fb2e2ad.webp',
     ],
   },
   {
