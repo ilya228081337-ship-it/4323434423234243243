@@ -435,7 +435,7 @@ function WhyUs() {
 /* ─── About NOW Foods ─── */
 const nowPhotos = [
   'https://images.pexels.com/photos/7722648/pexels-photo-7722648.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'https://images.pexels.com/photos/17604755/pexels-photo-17604755.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/tcdvambbc2cd099z9h0xps6ddt5ilmr8.webp',
   'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/p1h90vmfcg125b2nvj9amamuk35.webp',
 ];
 
