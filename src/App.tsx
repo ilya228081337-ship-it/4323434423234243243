@@ -259,7 +259,7 @@ function Header({ onGetConditions }: { onGetConditions: () => void }) {
       <div className="section-container flex items-center justify-between h-16 sm:h-20">
         <a href="#" className="flex items-center gap-3 shrink-0">
           <img
-            src="https://i.postimg.cc/pdsXwN9D/a-bold-geometric-wordmark-with-now-in-he-j-Hs-Tax-JOVy-CWrn-Fm-Ixbkhw-8Po-ZMBHSj-WAXb-Ucw8Aa-XA-cove.png"
+            src="https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/p1h90vmfcg125b2nvj9amamuk35.webp"
             alt="NOW KZ"
             className="h-12 sm:h-16 w-auto object-contain"
           />
