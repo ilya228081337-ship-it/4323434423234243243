@@ -616,8 +616,8 @@ const exclusiveBrands = [
       'Популярные позиции: омега-3, магний, NAC',
     ],
     photos: [
-      'https://images.pexels.com/photos/17604925/pexels-photo-17604925.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/17820733/pexels-photo-17820733.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/s-l1600.jpg',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/1775927_76778001.jpeg',
     ],
   },
 ];
