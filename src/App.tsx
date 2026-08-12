@@ -592,8 +592,8 @@ const exclusiveBrands = [
       'Популярные позиции: протеин, креатин, BCAA',
     ],
     photos: [
-      'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/17820709/pexels-photo-17820709.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(2).webp',
+      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/orig.webp',
     ],
   },
   {
