@@ -582,7 +582,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    photo: 'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/383361287-329003189637661-6283804144988201173-n-768x768.jpg',
     facts: [
       'Европейский производитель спортивного питания и добавок',
       'Отличное соотношение цены и качества',
