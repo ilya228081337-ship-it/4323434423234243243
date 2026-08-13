@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
   Truck,
-  Clock,
-  MessageCircle,
   Phone,
   Mail,
   MapPin,
@@ -24,6 +22,13 @@ import {
   Tag,
   SlidersHorizontal,
   Sparkles,
+  Warehouse,
+  Users,
+  LifeBuoy,
+  Route,
+  ClipboardCheck,
+  Plane,
+  Ship,
 } from 'lucide-react';
 
 /* ─── Hooks & shared UI ─── */
@@ -330,7 +335,7 @@ const heroBullets = [
   { icon: TrendingUp, text: 'Высокая маржинальность' },
   { icon: Truck, text: 'Прямые поставки' },
   { icon: SlidersHorizontal, text: 'Гибкие условия' },
-  { icon: Tag, text: 'Контроль РРЦ' },
+  { icon: Award, text: 'Официальный дистрибьютор' },
 ];
 
 function Hero({ onGetConditions }: { onGetConditions: () => void }) {
@@ -352,14 +357,14 @@ function Hero({ onGetConditions }: { onGetConditions: () => void }) {
             className="text-sm sm:text-base font-semibold tracking-widest uppercase text-primary-300 mb-5 hero-fade-up"
             style={{ animationDelay: '0.1s' }}
           >
-            Официальный дистрибьютор в Казахстане
+            Витамины и БАДы оптом для Бизнеса
           </p>
 
           <h1
             className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-7 hero-fade-up"
             style={{ animationDelay: '0.2s' }}
           >
-            NOW KZ — официальный дистрибьютор ведущих производителей БАДов в Казахстане
+            NOW KZ — ваш надежный поставщик высококачественных витаминов и пищевых добавок из США.
           </h1>
 
           <div className="flex flex-wrap gap-3 mb-8">
@@ -395,11 +400,11 @@ function Hero({ onGetConditions }: { onGetConditions: () => void }) {
 /* ─── Why Choose Us ─── */
 const advantages = [
   { icon: ShieldCheck, title: 'Гарантия 100% оригинальности' },
-  { icon: TrendingUp, title: 'Популярные бренды: NOW, Swanson, Life Extension, OstroVit, VPLab, Solaray' },
-  { icon: CheckCircle2, title: 'Сертификаты качества и контроль поставок' },
-  { icon: Truck, title: 'Быстрая доставка по Казахстану' },
-  { icon: Clock, title: 'Актуальные сроки годности' },
-  { icon: MessageCircle, title: 'Консультация по подбору витаминов' },
+  { icon: Route, title: 'Выстроенная логистика' },
+  { icon: FileCheck, title: 'Полный пакет сопроводительных документов' },
+  { icon: Warehouse, title: 'Собственные склады в Казахстане' },
+  { icon: Users, title: 'Гибкий подход к каждому партнеру' },
+  { icon: LifeBuoy, title: 'Поддержка партнеров на всех этапах' },
 ];
 
 function WhyUs() {
@@ -458,13 +463,13 @@ function AboutNow({ onGetConditions }: { onGetConditions: () => void }) {
                   Мы осуществляем прямые поставки продукции NOW с завода-производителя по предзаказу.
                 </p>
                 <p>
-                  Большой ассортимент продукции постоянно поддерживается на собственном складе в
-                  Алматы — популярные позиции доступны без длительного ожидания поставки.
+                  Популярные позиции NOW постоянно поддерживаются в наличии на складе в Алматы,
+                  что позволяет оперативно отгружать заказы нашим партнерам.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-2 mt-6">
-                {['Оригинальная продукция', 'Прямые поставки', 'Склад в Алматы'].map((tag) => (
+                {['Оригинальная продукция', 'Прямые поставки с завода NOW', 'Собственные склады в Казахстане'].map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium"
@@ -562,62 +567,47 @@ function Categories() {
 const exclusiveBrands = [
   {
     name: 'Swanson',
+    gradient: 'from-orange-500 to-amber-600',
     facts: [
       'Американский бренд витаминов и добавок с 1969 года',
       'Более 2 000 наименований в ассортименте',
       'Популярные позиции: омега-3, куркумин, цинк',
     ],
-    photos: [
-      'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/14744699/pexels-photo-14744699.jpeg?auto=compress&cs=tinysrgb&w=600',
-    ],
   },
   {
     name: 'VPLab',
+    gradient: 'from-red-600 to-rose-700',
     facts: [
       'Спортивное питание премиум-класса',
       'Высокое содержание белка и аминокислот',
       'Популярные позиции: протеины, BCAA, креатин',
     ],
-    photos: [
-      'https://images.pexels.com/photos/12625114/pexels-photo-12625114.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/33921585/pexels-photo-33921585.jpeg?auto=compress&cs=tinysrgb&w=600',
-    ],
   },
   {
     name: 'OstroVit',
+    gradient: 'from-blue-600 to-cyan-700',
     facts: [
       'Европейский производитель спортивного питания и добавок',
       'Отличное соотношение цены и качества',
       'Популярные позиции: протеин, креатин, BCAA',
     ],
-    photos: [
-      'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/17820709/pexels-photo-17820709.jpeg?auto=compress&cs=tinysrgb&w=600',
-    ],
   },
   {
     name: 'Solaray',
+    gradient: 'from-teal-600 to-emerald-700',
     facts: [
       'Бренд травяных и витаминных комплексов с 1973 года',
       'Инновационные формулы и высокое качество сырья',
       'Популярные позиции: магний, витамин D3, травяные комплексы',
     ],
-    photos: [
-      'https://images.pexels.com/photos/15897778/pexels-photo-15897778.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/15897772/pexels-photo-15897772.jpeg?auto=compress&cs=tinysrgb&w=600',
-    ],
   },
   {
     name: 'Life Extension',
+    gradient: 'from-slate-700 to-slate-900',
     facts: [
       'Премиальные формулы для долголетия и здоровья',
       'Научно обоснованные составы ингредиентов',
       'Популярные позиции: омега-3, магний, NAC',
-    ],
-    photos: [
-      'https://images.pexels.com/photos/17604925/pexels-photo-17604925.jpeg?auto=compress&cs=tinysrgb&w=600',
-      'https://images.pexels.com/photos/17820733/pexels-photo-17820733.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
 ];
@@ -643,22 +633,11 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
           {exclusiveBrands.map((brand, i) => (
             <AnimatedSection key={i} delay={i * 80} className="h-full">
               <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                {/* Logo / name header */}
-                <div className="px-6 pt-6 pb-4 border-b border-neutral-100">
-                  <h3 className="text-2xl font-bold text-neutral-900">{brand.name}</h3>
-                </div>
-
-                {/* Photos */}
-                <div className="grid grid-cols-2 gap-1 px-4 pt-4">
-                  {brand.photos.map((photo, j) => (
-                    <div key={j} className="aspect-[4/3] rounded-lg overflow-hidden">
-                      <img
-                        src={photo}
-                        alt={`${brand.name} — продукция ${j + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  ))}
+                {/* Logo area */}
+                <div className={`h-28 flex items-center justify-center bg-gradient-to-br ${brand.gradient}`}>
+                  <span className="text-2xl font-black text-white tracking-tight px-4 text-center">
+                    {brand.name}
+                  </span>
                 </div>
 
                 {/* Facts */}
@@ -831,64 +810,91 @@ function Quality() {
 }
 
 /* ─── Delivery ─── */
-const deliverySteps = [
+const logisticsFeatures = [
   {
-    icon: MessageCircle,
-    step: '01',
-    title: 'Оставьте заявку',
-    desc: 'Напишите нам или оставьте заявку на сайте — менеджер свяжется с вами для уточнения деталей.',
+    icon: Globe,
+    title: 'Надежная международная логистика',
+    desc: 'Сотрудничаем с ведущими логистическими операторами для доставки из США и Европы',
   },
   {
-    icon: ShieldCheck,
-    step: '02',
-    title: 'Подберём продукцию',
-    desc: 'Поможем выбрать витамины и БАДы под ваши цели, расскажем о составе и дозировках.',
+    icon: ClipboardCheck,
+    title: 'Помощь с растаможкой',
+    desc: 'Берем на себя таможенное оформление и подготовку всех необходимых документов',
+  },
+  {
+    icon: Package,
+    title: 'Полное сопровождение поставки',
+    desc: 'Контроль на каждом этапе — от консолидации груза до получения товара',
   },
   {
     icon: Truck,
-    step: '03',
-    title: 'Доставим быстро',
-    desc: 'Оперативная доставка в Алматы, Астану, Шымкент и другие города Казахстана.',
-  },
-  {
-    icon: CheckCircle2,
-    step: '04',
-    title: 'Получите оригинал',
-    desc: 'Все товары с сопроводительными документами, актуальными сроками годности и в надёжной упаковке.',
+    title: 'Доставка по Казахстану',
+    desc: 'Отгружаем заказы с локальных складов по всей территории Казахстана',
   },
 ];
 
 function Delivery() {
   return (
-    <section id="delivery" className="py-14 sm:py-20 bg-neutral-50">
-      <div className="section-container">
+    <section id="delivery" className="py-14 sm:py-20 bg-neutral-50 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary-100/40 rounded-full blur-3xl" />
+      <div className="section-container relative">
         <AnimatedSection>
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
-              Доставка по Казахстану
+              Логистика и доставка
             </h2>
             <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full mb-6" />
             <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-              Простой и удобный процесс от заявки до получения. Мы контролируем каждый этап.
+              Мы сотрудничаем с ведущими международными логистическими операторами, обеспечивая
+              надежную и оперативную доставку товаров из США и Европы в Казахстан.
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {deliverySteps.map((item, i) => (
-            <AnimatedSection key={i} delay={i * 80}>
-              <div className="card relative h-full flex flex-col items-start">
-                <span className="text-5xl font-black text-neutral-100 absolute top-4 right-4 leading-none select-none">
-                  {item.step}
-                </span>
-                <div className="w-12 h-12 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center mb-4 relative">
-                  <item.icon size={24} />
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <AnimatedSection>
+            <div className="space-y-5 text-neutral-600 leading-relaxed">
+              <p className="text-base sm:text-lg">
+                Отлаженная логистика обеспечивает надежную доставку — от консолидации груза до
+                таможенного оформления и получения товара.
+              </p>
+              <p className="text-base sm:text-lg">
+                Мы также осуществляем доставку по всей территории Казахстана с локальных складов.
+              </p>
+
+              {/* Route visualization */}
+              <div className="flex items-center gap-3 mt-8 p-5 rounded-2xl bg-white border border-neutral-200 shadow-sm">
+                <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-primary-50 text-primary-700 shrink-0">
+                  <Plane size={20} />
+                  <span className="text-sm font-bold">США</span>
                 </div>
-                <h3 className="text-base font-semibold text-neutral-900 mb-2 relative">{item.title}</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed relative">{item.desc}</p>
+                <div className="flex-1 relative flex items-center">
+                  <div className="w-full h-0.5 bg-gradient-to-r from-primary-300 to-primary-500" />
+                  <div className="absolute left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border-2 border-primary-200 flex items-center justify-center shadow-sm">
+                    <Ship size={18} className="text-primary-600" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-primary-50 text-primary-700 shrink-0">
+                  <MapPin size={20} />
+                  <span className="text-sm font-bold">Казахстан</span>
+                </div>
               </div>
-            </AnimatedSection>
-          ))}
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={150}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {logisticsFeatures.map((item, i) => (
+                <div key={i} className="card group flex flex-col">
+                  <div className="w-12 h-12 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
+                    <item.icon size={24} />
+                  </div>
+                  <h3 className="text-sm font-bold text-neutral-900 mb-1.5">{item.title}</h3>
+                  <p className="text-sm text-neutral-600 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
