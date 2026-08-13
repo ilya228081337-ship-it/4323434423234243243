@@ -566,7 +566,7 @@ function Categories() {
 /* ─── Exclusive Brands ─── */
 const exclusiveBrands = [
   {
-    photo: 'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/SWANSON-KUDZU-ROOT-500mg-60kap-NALOG-STRES-Data-waznosci-brak-informacji.jfif',
     facts: [
       'Американский бренд витаминов и добавок с 1969 года',
       'Более 2 000 наименований в ассортименте',
