@@ -323,7 +323,7 @@ function Header({ onGetConditions }: { onGetConditions: () => void }) {
 
 /* ─── Hero ─── */
 const heroImage =
-  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/p1h90vmfcg125b2nvj9amamuk35.webp';
+  'https://images.pexels.com/photos/7615570/pexels-photo-7615570.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80';
 
 const heroBullets = [
   { icon: Tag, text: 'Контроль РРЦ' },
@@ -434,9 +434,9 @@ function WhyUs() {
 
 /* ─── About NOW Foods ─── */
 const nowPhotos = [
-  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/25.08.22.webp',
-  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/tcdvambbc2cd099z9h0xps6ddt5ilmr8.webp',
-  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/p1h90vmfcg125b2nvj9amamuk35.webp',
+  'https://images.pexels.com/photos/7722648/pexels-photo-7722648.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/17604755/pexels-photo-17604755.jpeg?auto=compress&cs=tinysrgb&w=800',
+  'https://images.pexels.com/photos/15897781/pexels-photo-15897781.jpeg?auto=compress&cs=tinysrgb&w=800',
 ];
 
 function AboutNow({ onGetConditions }: { onGetConditions: () => void }) {
@@ -568,8 +568,8 @@ const exclusiveBrands = [
       'Популярные позиции: омега-3, куркумин, цинк',
     ],
     photos: [
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(1).webp',
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/6e507b8a8ce8a95898ba9d781fb2e2ad.webp',
+      'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/14744699/pexels-photo-14744699.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
   {
@@ -580,8 +580,8 @@ const exclusiveBrands = [
       'Популярные позиции: протеины, BCAA, креатин',
     ],
     photos: [
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/861c8a3a133927ee101b1cde42c7.webp',
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/1447922167.jpg',
+      'https://images.pexels.com/photos/12625114/pexels-photo-12625114.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/33921585/pexels-photo-33921585.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
   {
@@ -592,8 +592,8 @@ const exclusiveBrands = [
       'Популярные позиции: протеин, креатин, BCAA',
     ],
     photos: [
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(2).webp',
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/orig.webp',
+      'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/17820709/pexels-photo-17820709.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
   {
@@ -604,8 +604,8 @@ const exclusiveBrands = [
       'Популярные позиции: магний, витамин D3, травяные комплексы',
     ],
     photos: [
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/i%20(3).webp',
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/074117e5b661112e4357e9bfa4f46a8f.jpg',
+      'https://images.pexels.com/photos/15897778/pexels-photo-15897778.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/15897772/pexels-photo-15897772.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
   {
@@ -616,8 +616,8 @@ const exclusiveBrands = [
       'Популярные позиции: омега-3, магний, NAC',
     ],
     photos: [
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/s-l1600.jpg',
-      'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/1775927_76778001.jpeg',
+      'https://images.pexels.com/photos/17604925/pexels-photo-17604925.jpeg?auto=compress&cs=tinysrgb&w=600',
+      'https://images.pexels.com/photos/17820733/pexels-photo-17820733.jpeg?auto=compress&cs=tinysrgb&w=600',
     ],
   },
 ];
