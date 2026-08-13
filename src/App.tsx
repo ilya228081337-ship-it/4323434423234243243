@@ -918,12 +918,12 @@ function Delivery() {
           <AnimatedSection delay={150}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {logisticsFeatures.map((item, i) => (
-                <div key={i} className="card group flex flex-col">
+                <div key={i} className="card group flex flex-col h-full">
                   <div className="w-12 h-12 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center mb-4 group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
                     <item.icon size={24} />
                   </div>
                   <h3 className="text-sm font-bold text-neutral-900 mb-1.5">{item.title}</h3>
-                  <p className="text-sm text-neutral-600 leading-relaxed">{item.desc}</p>
+                  <p className="text-sm text-neutral-600 leading-relaxed flex-1">{item.desc}</p>
                 </div>
               ))}
             </div>
