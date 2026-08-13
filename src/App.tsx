@@ -598,7 +598,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    photo: 'https://images.pexels.com/photos/17604755/pexels-photo-17604755.jpeg?auto=compress&cs=tinysrgb&w=600',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/5b4292bb-08a5-4f9e-8fe4-51f8f75b034f.jpg',
     facts: [
       'Премиальные формулы для долголетия и здоровья',
       'Научно обоснованные составы ингредиентов',
