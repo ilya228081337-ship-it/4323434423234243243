@@ -566,10 +566,7 @@ function Categories() {
 /* ─── Exclusive Brands ─── */
 const exclusiveBrands = [
   {
-    name: 'Swanson',
-    logo: 'https://cdn.brandfetch.io/id2iC5Xjma/w/400/h/157/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1781761355302',
     photo: 'https://images.pexels.com/photos/13013778/pexels-photo-13013778.jpeg?auto=compress&cs=tinysrgb&w=600',
-    bg: 'bg-orange-50',
     facts: [
       'Американский бренд витаминов и добавок с 1969 года',
       'Более 2 000 наименований в ассортименте',
@@ -577,10 +574,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    name: 'VPLab',
-    logo: 'https://cdn.brandfetch.io/idCZIY-jM-/w/400/h/145/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1777450057436',
     photo: 'https://images.pexels.com/photos/12625114/pexels-photo-12625114.jpeg?auto=compress&cs=tinysrgb&w=600',
-    bg: 'bg-rose-50',
     facts: [
       'Спортивное питание премиум-класса',
       'Высокое содержание белка и аминокислот',
@@ -588,10 +582,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    name: 'OstroVit',
-    logo: '',
     photo: 'https://images.pexels.com/photos/17820735/pexels-photo-17820735.jpeg?auto=compress&cs=tinysrgb&w=600',
-    bg: 'bg-blue-50',
     facts: [
       'Европейский производитель спортивного питания и добавок',
       'Отличное соотношение цены и качества',
@@ -599,10 +590,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    name: 'Solaray',
-    logo: 'https://cdn.brandfetch.io/idLO7k4hma/w/400/h/200/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX&t=1781717176418',
     photo: 'https://images.pexels.com/photos/12349439/pexels-photo-12349439.jpeg?auto=compress&cs=tinysrgb&w=600',
-    bg: 'bg-emerald-50',
     facts: [
       'Бренд травяных и витаминных комплексов с 1973 года',
       'Инновационные формулы и высокое качество сырья',
@@ -610,10 +598,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    name: 'Life Extension',
-    logo: '',
     photo: 'https://images.pexels.com/photos/17604755/pexels-photo-17604755.jpeg?auto=compress&cs=tinysrgb&w=600',
-    bg: 'bg-slate-50',
     facts: [
       'Премиальные формулы для долголетия и здоровья',
       'Научно обоснованные составы ингредиентов',
@@ -643,33 +628,17 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
           {exclusiveBrands.map((brand, i) => (
             <AnimatedSection key={i} delay={i * 80} className="h-full">
               <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
-                {/* Logo / photo area */}
-                <div className={`relative h-44 ${brand.bg} flex items-center justify-center overflow-hidden`}>
-                  <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                    <img
-                      src={brand.photo}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="relative z-10 flex items-center justify-center h-full px-6">
-                    {brand.logo ? (
-                      <img
-                        src={brand.logo}
-                        alt={`${brand.name} — логотип`}
-                        className="max-h-24 max-w-[80%] w-auto object-contain"
-                      />
-                    ) : (
-                      <span className="text-3xl font-black text-neutral-800 tracking-tight text-center">
-                        {brand.name}
-                      </span>
-                    )}
-                  </div>
+                {/* Photo area */}
+                <div className="relative h-44 overflow-hidden bg-neutral-100">
+                  <img
+                    src={brand.photo}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 {/* Facts */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-lg font-bold text-neutral-900 mb-3">{brand.name}</h3>
                   <ul className="space-y-2.5 flex-1">
                     {brand.facts.map((fact, j) => (
                       <li key={j} className="flex items-start gap-2.5 text-sm text-neutral-600">
@@ -908,7 +877,7 @@ function Delivery() {
                   <span className="text-xs font-bold text-sky-800 bg-white/80 px-2 py-0.5 rounded-md">США</span>
                 </div>
 
-                {/* Flying plane animation */}
+                {/* Flying plane animation — USA to Transit */}
                 <div className="fly-plane absolute top-[28%] left-[14%] text-primary-500">
                   <Plane size={28} className="rotate-45" fill="currentColor" />
                 </div>
@@ -921,8 +890,8 @@ function Delivery() {
                   <span className="text-xs font-bold text-blue-800 bg-white/80 px-2 py-0.5 rounded-md">Транзит</span>
                 </div>
 
-                {/* Sailing ship animation */}
-                <div className="sail-ship absolute bottom-[18%] left-[35%] text-primary-600">
+                {/* Sailing ship animation — Transit to Kazakhstan */}
+                <div className="sail-ship absolute bottom-[18%] left-1/2 -translate-x-1/2 text-primary-600">
                   <Ship size={26} fill="currentColor" />
                 </div>
 

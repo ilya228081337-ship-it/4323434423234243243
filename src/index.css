@@ -186,25 +186,21 @@
 
 @keyframes fly-plane {
   0%   { transform: translate(0, 0) rotate(-5deg); opacity: 0; }
-  10%  { opacity: 1; }
+  5%   { opacity: 1; }
   40%  { transform: translate(140px, -8px) rotate(2deg); opacity: 1; }
-  50%  { opacity: 0; }
-  55%  { transform: translate(0, 12px) rotate(-5deg); opacity: 0; }
-  65%  { opacity: 1; }
+  48%  { opacity: 0; }
   100% { transform: translate(140px, -8px) rotate(2deg); opacity: 0; }
 }
-.fly-plane { animation: fly-plane 6s ease-in-out infinite; }
+.fly-plane { animation: fly-plane 8s ease-in-out infinite; }
 
 @keyframes sail-ship {
-  0%   { transform: translateX(0) rotate(-2deg); opacity: 0; }
-  15%  { opacity: 1; }
-  50%  { transform: translateX(100px) rotate(3deg); opacity: 1; }
-  60%  { opacity: 0; }
-  65%  { transform: translateX(0) rotate(-2deg); opacity: 0; }
-  80%  { opacity: 1; }
-  100% { transform: translateX(100px) rotate(3deg); opacity: 0; }
+  0%   { transform: translateX(0) translateY(0) rotate(-2deg); opacity: 0; }
+  50%  { transform: translateX(0) translateY(0) rotate(-2deg); opacity: 0; }
+  55%  { transform: translateX(0) translateY(-6px) rotate(-2deg); opacity: 1; }
+  90%  { transform: translateX(120px) translateY(-10px) rotate(3deg); opacity: 1; }
+  100% { transform: translateX(120px) translateY(-10px) rotate(3deg); opacity: 0; }
 }
-.sail-ship { animation: sail-ship 7s ease-in-out infinite; }
+.sail-ship { animation: sail-ship 8s ease-in-out infinite; }
 
 @layer utilities {
   .text-balance {
