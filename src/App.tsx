@@ -590,7 +590,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    photo: 'https://images.pexels.com/photos/12349439/pexels-photo-12349439.jpeg?auto=compress&cs=tinysrgb&w=600',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/Solaray_Logo.jpg',
     facts: [
       'Бренд травяных и витаминных комплексов с 1973 года',
       'Инновационные формулы и высокое качество сырья',
