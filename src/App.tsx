@@ -328,7 +328,7 @@ function Header({ onGetConditions }: { onGetConditions: () => void }) {
 
 /* ─── Hero ─── */
 const heroImage =
-  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/p1h90vmfcg125b2nvj9amamuk35.webp';
+  'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/pexels-photo-7615571.avif';
 
 const heroBullets = [
   { icon: Tag, text: 'Контроль РРЦ' },
