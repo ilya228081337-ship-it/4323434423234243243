@@ -566,7 +566,7 @@ function Categories() {
 /* ─── Exclusive Brands ─── */
 const exclusiveBrands = [
   {
-    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/SWANSON-KUDZU-ROOT-500mg-60kap-NALOG-STRES-Data-waznosci-brak-informacji.jfif',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/SWANSON-ASZWAGANDA-zen-szen-indyjski-ORGANICZNA-Marka-Swanson-Health-Products.jfif',
     facts: [
       'Американский бренд витаминов и добавок с 1969 года',
       'Более 2 000 наименований в ассортименте',
