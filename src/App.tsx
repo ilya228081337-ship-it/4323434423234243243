@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
+  MessageCircle,
   Truck,
   Phone,
   Mail,
@@ -246,7 +247,6 @@ function Header({ onGetConditions }: { onGetConditions: () => void }) {
 
   const navLinks = [
     { href: '#brands', label: 'О бренде' },
-    { href: '#categories', label: 'Категории' },
     { href: '#exclusive', label: 'Партнёры' },
     { href: '#business', label: 'Бизнесу' },
     { href: '#quality', label: 'Качество' },
@@ -521,48 +521,6 @@ function AboutNow({ onGetConditions }: { onGetConditions: () => void }) {
   );
 }
 
-/* ─── Categories ─── */
-const categories = [
-  { label: 'Витамин D3 и K2', icon: 'D3' },
-  { label: 'Магний и цинк', icon: 'Mg' },
-  { label: 'Омега-3', icon: 'Ω3' },
-  { label: 'Коллаген', icon: 'C+' },
-  { label: 'Витамины для иммунитета', icon: 'ИМ' },
-  { label: 'БАДы для суставов', icon: 'СУ' },
-  { label: 'Комплексы для сна', icon: 'СН' },
-  { label: 'Антиоксиданты и энергия', icon: 'AE' },
-];
-
-function Categories() {
-  return (
-    <section id="categories" className="py-14 sm:py-20 bg-white">
-      <div className="section-container">
-        <AnimatedSection>
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
-              Популярные категории
-            </h2>
-            <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full" />
-          </div>
-        </AnimatedSection>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {categories.map((cat, i) => (
-            <AnimatedSection key={i} delay={i * 50}>
-              <div className="card text-center group cursor-default">
-                <div className="w-14 h-14 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center mx-auto mb-3 text-lg font-bold group-hover:bg-primary-600 group-hover:text-white transition-colors duration-300">
-                  {cat.icon}
-                </div>
-                <h3 className="text-sm font-semibold text-neutral-800">{cat.label}</h3>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ─── Exclusive Brands ─── */
 const exclusiveBrands = [
   {
@@ -633,7 +591,7 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
                   <img
                     src={brand.photo}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full ${i === 1 ? 'object-contain p-4' : 'object-cover'}`}
                   />
                 </div>
 
@@ -934,6 +892,67 @@ function Delivery() {
   );
 }
 
+/* ─── Getting Started ─── */
+const gettingStartedSteps = [
+  {
+    icon: MessageCircle,
+    title: 'Оставьте заявку',
+    desc: 'Напишите нам или оставьте заявку на сайте — менеджер свяжется с вами для уточнения деталей.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Подберём продукцию',
+    desc: 'Поможем выбрать витамины и БАДы под ваши цели, расскажем о составе и дозировках.',
+  },
+  {
+    icon: Truck,
+    title: 'Доставим быстро',
+    desc: 'Оперативная доставка в Алматы, Астану, Шымкент и другие города Казахстана.',
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Получите оригинал',
+    desc: 'Все товары с сопроводительными документами, актуальными сроками годности и в надёжной упаковке.',
+  },
+];
+
+function GettingStarted() {
+  return (
+    <section className="py-14 sm:py-20 bg-white">
+      <div className="section-container">
+        <AnimatedSection>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
+              4 шага для начала работы
+            </h2>
+            <div className="w-16 h-1 bg-primary-500 mx-auto rounded-full mb-6" />
+            <p className="text-lg text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+              Простой и удобный процесс от заявки до получения. Мы контролируем каждый этап.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+          {gettingStartedSteps.map((step, i) => (
+            <AnimatedSection key={step.title} delay={i * 80} className="h-full">
+              <div className="relative h-full min-h-[392px] rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <span className="absolute top-3 right-5 text-6xl font-bold text-neutral-100 leading-none select-none">
+                  0{i + 1}
+                </span>
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-xl bg-primary-50 text-primary-600 mb-7">
+                  <step.icon size={32} strokeWidth={2} />
+                </div>
+                <h3 className="relative text-xl font-bold text-neutral-900 mb-4">{step.title}</h3>
+                <p className="relative text-lg text-neutral-500 leading-relaxed">{step.desc}</p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Contact ─── */
 function Contact({ onGetConditions }: { onGetConditions: () => void }) {
   return (
@@ -998,7 +1017,6 @@ function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a href="#brands" className="hover:text-white transition-colors">О бренде</a>
-            <a href="#categories" className="hover:text-white transition-colors">Категории</a>
             <a href="#exclusive" className="hover:text-white transition-colors">Партнёры</a>
             <a href="#business" className="hover:text-white transition-colors">Бизнесу</a>
             <a href="#quality" className="hover:text-white transition-colors">Качество</a>
@@ -1027,11 +1045,11 @@ function App() {
         <Hero onGetConditions={openModal} />
         <WhyUs />
         <AboutNow onGetConditions={openModal} />
-        <Categories />
+        <Delivery />
         <ExclusiveBrands onGetConditions={openModal} />
         <ForBusiness onGetConditions={openModal} />
         <Quality />
-        <Delivery />
+        <GettingStarted />
         <Contact onGetConditions={openModal} />
       </main>
       <Footer />
