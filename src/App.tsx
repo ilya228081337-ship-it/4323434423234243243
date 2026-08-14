@@ -587,7 +587,7 @@ function ExclusiveBrands({ onGetConditions }: { onGetConditions: () => void }) {
             <AnimatedSection key={i} delay={i * 80} className="h-full">
               <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
                 {/* Photo area */}
-                <div className="relative h-44 overflow-hidden bg-neutral-100">
+                <div className={`relative h-44 overflow-hidden ${i === 1 ? 'bg-white' : 'bg-neutral-100'}`}>
                   <img
                     src={brand.photo}
                     alt=""
