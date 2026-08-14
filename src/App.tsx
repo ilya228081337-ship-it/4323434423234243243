@@ -574,7 +574,7 @@ const exclusiveBrands = [
     ],
   },
   {
-    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/e9dba627a67f4d5580b7fe13e94f5c18%20(1)%20(2).webp',
+    photo: 'https://s3.twcstorage.ru/7aa0da8f-f28e-418d-8a6d-fdaec848631b/e9dba627a67f4d5580b7fe13e94f5c18%20(1)%20(3).webp',
     facts: [
       'Спортивное питание премиум-класса',
       'Высокое содержание белка и аминокислот',
