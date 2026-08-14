@@ -364,7 +364,7 @@ function Hero({ onGetConditions }: { onGetConditions: () => void }) {
             className="text-3xl sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] font-bold text-white leading-tight mb-7 hero-fade-up"
             style={{ animationDelay: '0.2s' }}
           >
-            NOW KZ — ваш надежный поставщик высококачественных витаминов и пищевых добавок из США.
+            NOW KZ — ваш надежный поставщик высококачественных витаминов и пищевых добавок.
           </h1>
 
           <div className="flex flex-wrap gap-3 mb-8">
